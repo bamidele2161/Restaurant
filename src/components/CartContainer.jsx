@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {motion} from 'framer-motion'
 import {MdOutlineKeyboardBackspace} from 'react-icons/md'
 import {RiRefreshFill} from 'react-icons/ri'
@@ -12,6 +12,8 @@ import CartItems from "./CartItems"
 const CartContainer = () => {
 
     const [{cartShow, cartItems, user }, dispatch] = useStateValue();
+    const [tot, setTot] = useState(0);
+    const [flag, setFlag] = useState(1)
 
     const showCart = () => {
         dispatch({
@@ -20,6 +22,22 @@ const CartContainer = () => {
         });
     }
 
+    useEffect(() => {
+      let totalPrice = cartItems.reduce((accumulator, item) => {
+        return accumulator + item.quantity * item.price;
+      }, 0);
+      setTot(totalPrice);
+      console.log(tot);
+    }, [tot, flag])
+
+
+    const clearCart = () => {
+      dispatch({
+        type: actionType.SET_CARTITEMS,
+        cartItems: [],
+      });
+      localStorage.setItem("cartItems", JSON.stringify([]));
+    }
   return (
     <motion.div 
         initial={{opacity: 0, x: 200}}
@@ -34,6 +52,7 @@ const CartContainer = () => {
         <p className="text-textColor text-lg font-semibold">Cart</p>
         <motion.p whileTap={{scale: 0.75}} 
             className="flex items-center gap-2 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md cursor-pointer text-textColor text-base"
+            onClick={clearCart}
             >Clear <RiRefreshFill /> {""}
         </motion.p>
       </div>
@@ -55,7 +74,7 @@ const CartContainer = () => {
           <div className="w-full flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2">
               <div className="w-full flex items-center justify-between">
                   <p className="text-gray-400 text-lg">Sub Total</p>
-                  <p className="text-gray-400 text-lg">$ 8.5</p>
+                  <p className="text-gray-400 text-lg">$ {tot}</p>
               </div>
               <div className="w-full flex items-center justify-between">
                   <p className="text-gray-400 text-lg">Delivery</p>
@@ -65,9 +84,9 @@ const CartContainer = () => {
   
               <div className="w-full flex items-center justify-between">
                   <p className="text-gray-200 text-xl font-semibold">Total</p>
-                  <p className="text-gray-200 text-xl font-semibold">$11.5</p>
+                  <p className="text-gray-200 text-xl font-semibold">${tot + 2.5}</p>
               </div>
-  
+
               {
                   user ? (
                     <motion.button

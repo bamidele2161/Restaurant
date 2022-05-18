@@ -188,7 +188,7 @@ const CreateContainer = () => {
                       <input type="file" name="uploadimage" accept="image/*" onChange={uploadImgae} className="w-0 h-0" />
                     </label>
                     </div>) : (<div className="relative h-full">
-                      <img src={imageAsset} alt="uploaded avatar" className="w-full h-full object-cover"/>
+                      <img src={imageAsset} alt="uploaded avatar" className="w-50 h-50 md:w-40 md:h-40 object-contain "/>
                       <button type="button" 
                       className="absolute bottom-3 right-3 p-3 rounded-full bg-red-500 text-xl cursor-pointer
                       outline-none hover:shadow-md duration-500 transition-all ease-in-out" 

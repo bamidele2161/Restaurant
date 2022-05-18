@@ -34,7 +34,7 @@ const MainContainer = () => {
           </div>
         </div>
         <RowContainer scrollValue={scrollValue} flag={true} data={
-          foodItems?.filter((n) => n.category === "mutton")
+          foodItems?.filter((n) => n.category === "fruits")
         }/>
       </section>
       <section>

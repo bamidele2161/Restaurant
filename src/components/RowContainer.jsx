@@ -35,12 +35,11 @@ const RowContainer = ({flag, data, scrollValue}) => {
                     <div className="w-full flex items-center justify-between">
                         <motion.div  
                             whileTap={{scale: 1.2 }}
-                            src={item.imageURL}
                             className="w-40 h-40 -mt-8 drop-shadow-xl"
                             alt=""
                         >
                             <img 
-                                src={item.imageURL}
+                                src={item?.imageURL}
                                 className="w-full h-full object-contain"
                                 alt=""
                             />
